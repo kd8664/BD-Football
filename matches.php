@@ -13,16 +13,25 @@
             margin-right:auto;
         }
 
-        .btn{
-            justify-content:center;
-            font-size: 16px;
-        }
+        
+    .btn {
+        float:right;
+        background-color: #4285F4;
+        font-size: 18px;
+        color: white;
+    }
+
+    .btn:hover {
+        background-color: #1259b0;
+        color: white;
+    }
         </style>
   </head>
 
   <body>
   <?php
-  $sqlgame = $conn->query("SELECT Game.id, Game.id_team1, Game.id_team2 FROM Game ORDER BY Game.id ASC");
+  $sql="SELECT Game.id, Game.id_team1, Game.id_team2 FROM Game ORDER BY Game.id ASC";
+  $sqlgame = $conn->query($sql);
   ?>
 <div class="container pt-5">
     <div class="center">
@@ -58,17 +67,25 @@ foreach ($sqlgame as $games) :
     JOIN Team ON Player.id_team=Team.id
     WHERE Goal.id_game=$id_game AND Team.id=$id_team2");
     $goals2= $sqlgoals2->fetch(PDO::FETCH_ASSOC);
+    if($goals1['COUNT(Goal.id)']==0)
 ?>
 <tr>
 <th><?= $id_game ?></th>
 <td align=right><?= $name1['Name'] ?></td>
 <td class="table-active" align=center><b><?= $goals1['COUNT(Goal.id)']?>:<?= $goals2['COUNT(Goal.id)']?></b></td>
 <td><?= $name2['Name'] ?></td>
+<td>
+ <a href="/deleteevent.php?id=<?= $games['id'] ?>"><img class="ml-3" style="float:right"  src="/assets/del.png" width="20" height="20"></a>
+</td>
 </tr>
 <?php endforeach; ?>
 </tbody>
 </table>
+<form>
+            <button formaction="/NewMatch.php" class="btn  mt-3">
+                <ya-tr-span data-type="trSpan">Добавить матч</ya-tr-span>
+            </button>
+        </form>
     </div>
 </div>
-
 </body>

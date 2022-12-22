@@ -31,6 +31,6 @@ if (isset($_POST["login"]) and $_POST["login"] != '') {
 if (isset($_GET["logout"])) {
     session_unset();
     $_SESSION['msg'] = "Вы успешно вышли из системы";
-    header('Location: http://609-91webprogramkd');
+    header('Location: http://footballcup');
     exit();
 }
